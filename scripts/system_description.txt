@@ -1,0 +1,66 @@
+-----------
+Launchfile
+-----------
+
+1. launch with own clock server, --> this not done launch such that it uses ROS time. 
+
+2. when setting values for agent simulation duration, and clock simulation duration, 
+careful that the values of clock are higher than the duration of the simulation of agents, 
+otherwise agent simulation will not stop.
+
+
+
+---------------
+Functions
+---------------
+
+a. random_walk function which returns the new state and the new position, and takes as argument the current position. 
+
+TO ADD: bouncing back from the boundary -- DONE
+
+b. follow targets -- DONE
+
+c. interaction protocols 
+    types of requests
+        info
+        help
+    potential sync issues are marked with ##SYNC##
+    check that all class attr are thread safe (only the ones handled by many threads) -- DONE
+    consider all messages sent within the current timestep. ignore previous. -- DONE
+
+    TO BE DONE:
+    move more towards more interesting target -- DONE
+    empty dropped list every once in a while -- DONE
+    check that positions of targets are updated based on the messages from environment -- DONE
+
+d. target movement -- DONE
+
+e. env publishing positions of all objects -- DONE
+
+f. calculation of willingness and utility -- DONE
+
+g. factors and weights should be given in the launchfiles
+
+--------------
+nodes
+--------------
+agent --> if the agents spots many new targets in the same timestep, it will handle one target per timestep.
+
+clock --> keeps time. clock will update only when it has received from all agents a message confirming that they have finished one cycle. the env
+node is considered an agent as well. Also the clock will be stopped when an agent triggers an interaction.
+
+environment --> draws continuously the locations of the agents and targets. It needs to publish the locations of all
+objects (agents + targets) and subscribe to the agents' positions.
+
+-----------------
+BEFORE RUNNING
+-----------------
+make sure that the clock has the correct number of agents.
+
+simulation duration should be the same for all agents, clock, and environment
+
+environment and agents should share the same area size
+
+check that k is not more than the number of agents
+
+DON'T FORGET to set sim time: rosparam set /use_sim_time True. This has to be called after roscore. 

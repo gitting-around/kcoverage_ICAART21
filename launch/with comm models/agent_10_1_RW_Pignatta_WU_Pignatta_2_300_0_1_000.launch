@@ -1,0 +1,154 @@
+<launch>
+<param name="use_sim_time" value="true"/>
+<arg name="seedval"/>
+<param name="seed" value="$(arg seedval)"/>
+<group ns="robot1">
+<node pkg="gitagent_2" name="agent" type="agent.py">
+<param name="myID" value="1"/>
+<param name="random_walk_method" value="RW_Pignatta"/>
+<param name="wu_method" value="WU_Pignatta"/>
+<param name="kcoverage" value="2"/>
+<param name="sim_duration" value="300"/>
+<param name="toggle_request" value="0"/>
+<param name="toggle_respond" value="0"/>
+<param name="toggle_behaviour" value="0"/>
+</node>
+</group>
+
+<group ns="robot2">
+<node pkg="gitagent_2" name="agent" type="agent.py">
+<param name="myID" value="2"/>
+<param name="random_walk_method" value="RW_Pignatta"/>
+<param name="wu_method" value="WU_Pignatta"/>
+<param name="kcoverage" value="2"/>
+<param name="sim_duration" value="300"/>
+<param name="toggle_request" value="0"/>
+<param name="toggle_respond" value="0"/>
+<param name="toggle_behaviour" value="0"/>
+</node>
+</group>
+
+<group ns="robot3">
+<node pkg="gitagent_2" name="agent" type="agent.py">
+<param name="myID" value="3"/>
+<param name="random_walk_method" value="RW_Pignatta"/>
+<param name="wu_method" value="WU_Pignatta"/>
+<param name="kcoverage" value="2"/>
+<param name="sim_duration" value="300"/>
+<param name="toggle_request" value="0"/>
+<param name="toggle_respond" value="0"/>
+<param name="toggle_behaviour" value="0"/>
+</node>
+</group>
+
+<group ns="robot4">
+<node pkg="gitagent_2" name="agent" type="agent.py">
+<param name="myID" value="4"/>
+<param name="random_walk_method" value="RW_Pignatta"/>
+<param name="wu_method" value="WU_Pignatta"/>
+<param name="kcoverage" value="2"/>
+<param name="sim_duration" value="300"/>
+<param name="toggle_request" value="0"/>
+<param name="toggle_respond" value="0"/>
+<param name="toggle_behaviour" value="0"/>
+</node>
+</group>
+
+<group ns="robot5">
+<node pkg="gitagent_2" name="agent" type="agent.py">
+<param name="myID" value="5"/>
+<param name="random_walk_method" value="RW_Pignatta"/>
+<param name="wu_method" value="WU_Pignatta"/>
+<param name="kcoverage" value="2"/>
+<param name="sim_duration" value="300"/>
+<param name="toggle_request" value="0"/>
+<param name="toggle_respond" value="0"/>
+<param name="toggle_behaviour" value="0"/>
+</node>
+</group>
+
+<group ns="robot6">
+<node pkg="gitagent_2" name="agent" type="agent.py">
+<param name="myID" value="6"/>
+<param name="random_walk_method" value="RW_Pignatta"/>
+<param name="wu_method" value="WU_Pignatta"/>
+<param name="kcoverage" value="2"/>
+<param name="sim_duration" value="300"/>
+<param name="toggle_request" value="0"/>
+<param name="toggle_respond" value="0"/>
+<param name="toggle_behaviour" value="0"/>
+</node>
+</group>
+
+<group ns="robot7">
+<node pkg="gitagent_2" name="agent" type="agent.py">
+<param name="myID" value="7"/>
+<param name="random_walk_method" value="RW_Pignatta"/>
+<param name="wu_method" value="WU_Pignatta"/>
+<param name="kcoverage" value="2"/>
+<param name="sim_duration" value="300"/>
+<param name="toggle_request" value="0"/>
+<param name="toggle_respond" value="0"/>
+<param name="toggle_behaviour" value="0"/>
+</node>
+</group>
+
+<group ns="robot8">
+<node pkg="gitagent_2" name="agent" type="agent.py">
+<param name="myID" value="8"/>
+<param name="random_walk_method" value="RW_Pignatta"/>
+<param name="wu_method" value="WU_Pignatta"/>
+<param name="kcoverage" value="2"/>
+<param name="sim_duration" value="300"/>
+<param name="toggle_request" value="0"/>
+<param name="toggle_respond" value="0"/>
+<param name="toggle_behaviour" value="0"/>
+</node>
+</group>
+
+<group ns="robot9">
+<node pkg="gitagent_2" name="agent" type="agent.py">
+<param name="myID" value="9"/>
+<param name="random_walk_method" value="RW_Pignatta"/>
+<param name="wu_method" value="WU_Pignatta"/>
+<param name="kcoverage" value="2"/>
+<param name="sim_duration" value="300"/>
+<param name="toggle_request" value="0"/>
+<param name="toggle_respond" value="0"/>
+<param name="toggle_behaviour" value="0"/>
+</node>
+</group>
+
+<group ns="robot10">
+<node pkg="gitagent_2" name="agent" type="agent.py">
+<param name="myID" value="10"/>
+<param name="random_walk_method" value="RW_Pignatta"/>
+<param name="wu_method" value="WU_Pignatta"/>
+<param name="kcoverage" value="2"/>
+<param name="sim_duration" value="300"/>
+<param name="toggle_request" value="0"/>
+<param name="toggle_respond" value="0"/>
+<param name="toggle_behaviour" value="0"/>
+</node>
+</group>
+
+<group ns="environment">
+<node pkg="gitagent_2" name="environment" type="env_agent.py" >
+<param name="myID" value="-1"/>
+<param name="random_walk_method" value="RW_Pignatta"/>
+<param name="sim_duration" value="300"/>
+<param name="no_targets" value="1"/>
+<param name="frequency" value="0"/>
+<param name="tg_update" value="1"/>
+</node>
+</group>
+
+<group ns="clock_agent">
+<node pkg="gitagent_2" name="clock_agent" type="clock_agent.py" required="true" >
+<param name="random_walk_method" value="RW_Pignatta"/>
+<param name="sim_duration" value="300"/>
+<param name="no_agents" value="10"/>
+</node>
+</group>
+
+</launch>

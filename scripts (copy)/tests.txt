@@ -1,0 +1,70 @@
+
+--------------------------------------
+1. Understanding simulated time in ros
+--------------------------------------
+Assume roscore always running
+
+On first start, the order of startup of the agent node and clock node does not matter.
+However, if both nodes shutdown, then the clock node should be started first. Otherwise 
+it might happen that the agent node never gets the new value of the clock (>0)
+If the clock node is always running, then the agent node can be restarted without issue, 
+as it will get the new value of the clock.
+---------------------------------------
+on the clock side, sometimes it can print the wrong time, right after setting it. It might be that the value on /clock topic is not updated
+yet. It shouldn't bring problems to the others.
+
+-----------------------------------------
+2. Check Functions
+-----------------------------------------
+a. check flow of the functions written wrt paper (1st check. a second one needed)
+
+b. check that lists and dicts are modified properly (CHECKED: env_agent.py, agent.py)
+    DICTS --> can be modified in a simple for loop, by key
+    LIST --> to modify element in list, use for loop and enumerate
+
+c. check that every function does what you think it does
+
+d. check that variables that are shared between threads are threadsafe (CHECKED: agent.py, clock.py, env_agent.py)
+
+e. look how execution with several agents and targets looks like
+
+f. check that data are updated correctly
+    initialization as well
+    movement ones
+
+---bugs----
+1. SOLVED: elements in followed_targets and dropped_targets seem to get duplicated. STATUS: unsolved --> solved
+3. check that lock is acquired when checking condition of multi threaded variable. -- KNOW HOW TO FIX THIS NOW -- FIXED
+4. how agents notify when they drop a target is not clear -- FIXED
+5. /home/mfi01/catkin_ws/src/gitagent_2/scripts/random_walk_plg/rw_plugins.py:76: RuntimeWarning: invalid value encountered in double_scalars
+  motion[3] = np.matmul(target_dirs, target_interest)/len(target_dirs) --> division by zero in move_toward --> LOCALIZED --> state was not set to 0 when
+  self.followed_Targets became empty --> SOLVED
+6. SOLVED: ag_involved turns to tuple instead of list at some point
+    the rospy genius did this: In rospy, arrays are deserialized as tuples for performance reasons, but you can set fields to tuples and lists interchangeably.(from the msg wiki page)
+7. there might be cases in which agents process requests not meant for them. Fixed only for the help type messages. Should I also for the info messages? -->
+Done for infor_answer as well. --> SOLVED
+    (possible solution: use the callback for info to publish an answer that says current agent is on it. -- ???)
+8. check the dropped_targets lists updating. check also when target moves out of range to notify leader!!! ---> implementation DONE --> SOLVED
+9. interact thread will hang indefinitely if stop_clock or start_clock block indefinitely to wait for the clock service. -->
+potential solution is to put timeout for wait_for_service, the timeout would be duration of simulation minus current timestep. If the
+simulation has ended, we don't want to wait anymore. or we could wait only a couple of timesteps (THIS FIX is done for now), but then the request will be ignored since the
+timestep won't match.
+
+TO BE ADDRESSED:
+
+2. an agent can be following the same target on account of different groups. that means that the target can appear several times in 
+self.followed_targets. by having the agent keep only one alternative in followed_target, when agent drops the target, it will
+notify only one other agent. not clear what happens if different clusters with different leaders for the same target are created. STATUS: unsolved
+
+10. if I accept to help for smth outside my range, I will drop it on the next iteration --> possible solution add considerations about
+position on the willingness
+
+11. answers to information requests can come with a delay, when I already started the coalition formation. Possible solutions, increase
+timeout, or add some functions for the resolution of multiple coalitions.
+
+12. The unregister was put at the end of the operate thread. It might be necessary at the end of the interact thread. also environment and clock
+should be the last ones to close, in the mentioned order.
+
+13. the calls to stop the clock, or lock the target can block forever on wait --> not clear why, after making the clock be last to shutdown
+
+14. if the leader drops the target, and a second one drops the target, whilst still sending this message to the first leader, the new leader will still think the other agent is part of the coalition

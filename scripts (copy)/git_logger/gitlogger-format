@@ -1,0 +1,18 @@
+### FORMAT of the log files. 14 lines
+name: gitlogger_$agentID
+
+Line 1: name of approach
+Line 2: duration of simulation ($duration - 1)
+Line 3: List of tasks followed for every timestep. Timesteps are separated with |, tasks within one timestep are separated with #, for each task are given the
+id xpos ypos separated by space.
+Line 4: Values of willingness, given as value timestep, (the willingness can be calculated several times within a timestep, or not at all). Each instance is separated with |
+*Line 5: Tasks that are dropped at that timestep in the form id xpos ypos timestep. Instances are separated with |.
+Line 6: Requests agent made separated by |. Each request contains info on task as id xpos ypos timestep.
+Line 7: Requests for help gotten from others separated by |. Each request contains info on task as id xpos ypos timestep.
+*Line 8: Number of replans every timestep separated by space.
+Line 9: If there is a planner call for every timestep separated by space. If there is the value is 1, otherwise it is 0.
+Line 10: If there is a new received plan for every timestep separated by space. If there is the value is 1, otherwise it is 0.
+Line 11: If the plan is done 0 for not done, 1 for done. It is logged for everytimestep separated by space.
+Line 12: The task ids the agent is assigned by the planner separated by space, for every timestep separated by |.
+Line 13: Agent position as x y separated by space, for each timestep separated by |.
+Line 14: Equipment ids for the agent separated by space, logged every timestep separated by |.

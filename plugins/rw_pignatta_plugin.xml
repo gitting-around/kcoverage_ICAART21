@@ -1,0 +1,7 @@
+<library path="scripts/random_walk_plg">
+  <class type="rw_plugins::RW_Pignatta" base_class_type="rw_base::Random_Walk">
+  <description>
+  This is the random walk plugin for the pasta simulations
+  </description>
+  </class>
+</library>

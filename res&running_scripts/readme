@@ -1,0 +1,31 @@
+How to get the results from the Pignatta experiments:
+
+1. Run handle_results.py for each case of each configuration. Cases that correspond to one configuration will be recorded as a separate 
+row in the same csv file. 
+for the static cases the metrics are (each cell in the row in the order below):
+	Average time to get 1 agent covering a target
+	Minimum time to get all the targets covered with 1 agent
+	Average time to get k agent covering a target
+	Minimum time to get all the targets covered with k agent
+
+for the dynamic case (each cell in the row in the order below):
+	Average k-coverage time per target
+	Average amount of agents covering a target (per target)
+
+This script can be run as follows:
+
+        $ ./run_simulation.sh 3 3 7 reqresp/ 
+
+which calls ./run_results.sh
+which calls:
+
+	$ ./handle_results.py no_agents no_targets sim_duration coverage static/dynamic"
+
+2. Run get_violinplot.py, as follows: won't work with comm models data
+
+	$ ./get_violinsnplot.py
+	you will be asked of the value of k--> coverage, and the number of distinct configurations
+
+2'. python3 ./get_boxplot.py
+
+
